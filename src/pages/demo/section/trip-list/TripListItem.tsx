@@ -121,7 +121,10 @@ export default function TripItem({ trip, vertical }: Props) {
         <Box sx={{ flexShrink: { sm: 0 } }}>
           <Image
             alt={Id}
-            src={vehicleInfo.ImgURL}
+            src={
+              vehicleInfo?.ImgURL ??
+              'https://static.vecteezy.com/system/resources/previews/005/576/332/original/car-icon-car-icon-car-icon-simple-sign-free-vector.jpg'
+            }
             sx={{
               height: 1,
               objectFit: 'cover',

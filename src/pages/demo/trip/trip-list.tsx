@@ -4,6 +4,7 @@ import Head from 'next/head';
 import MainLayout from 'src/layouts/main';
 // sections
 import TripListView from '../section/views/TripListView';
+import ItemList from 'src/components/ItemList';
 
 // ----------------------------------------------------------------------
 
@@ -15,6 +16,7 @@ export default function ElearningCoursesPage() {
   return (
     <>
       <TripListView />
+      <ItemList />
     </>
   );
 }

@@ -48,25 +48,39 @@ export default function TravelTourDetailsHeader({ tripDetails }: Props) {
           mb: 3,
         }}
       >
-        <Image
-          alt={TripId}
-          src={TripDetail.Vehicle.ImgURL}
-          sx={{
-            height: 1,
-            objectFit: 'cover',
-            width: { sm: 150 },
-          }}
-        ></Image>
+        {TripDetail?.Vehicle?.ImgURL ? (
+          <Image
+            alt={TripId}
+            src={TripDetail.Vehicle.ImgURL}
+            sx={{
+              height: 1,
+              objectFit: 'cover',
+              width: { sm: 150 },
+            }}
+          />
+        ) : (
+          // Render một ảnh mặc định hoặc không render gì nếu không có ImgURL
+          <Image
+            alt={TripId}
+            src="https://static.vecteezy.com/system/resources/previews/005/576/332/original/car-icon-car-icon-car-icon-simple-sign-free-vector.jpg"
+            sx={{
+              height: 1,
+              objectFit: 'cover',
+              width: { sm: 150 },
+            }}
+          />
+        )}
         <Typography variant="h3" sx={{ fontSize: '1rem' }}>
-          {TripDetail.Vehicle.Mode} - {TripDetail.Vehicle.Type}
+          {TripDetail?.Vehicle?.Mode ?? 'Loại xe null'} -{' '}
+          {TripDetail?.Vehicle?.Type ?? 'Kiểu xe null'}
           <br />
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             <Typography variant="h5">
               <Icon style={{ position: 'relative', top: '6px', fontSize: 25 }} icon="raphael:car" />{' '}
-              {TripDetail.Vehicle.LicensePlate}
+              {TripDetail?.Vehicle?.LicensePlate ?? 'A-123456'}
             </Typography>
-            <Typography sx={{ color: TripDetail.Vehicle.Color }} variant="h5">
-              {TripDetail.Vehicle.Color}
+            <Typography sx={{ color: TripDetail?.Vehicle?.Color ?? 'Black' }} variant="h5">
+              {TripDetail?.Vehicle?.Color ?? 'Black'}
               <CircleIcon sx={{ position: 'relative', top: '5px' }} />{' '}
             </Typography>
           </Stack>

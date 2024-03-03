@@ -60,7 +60,10 @@ export default function TravelOrderCompletedView({ tripId }: Type) {
       {isMdUp && (
         <Image
           alt="cover"
-          src={tripDetails.TripDetail.Vehicle.ImgURL}
+          src={
+            tripDetails?.TripDetail?.Vehicle?.ImgURL ??
+            'https://static.vecteezy.com/system/resources/previews/005/576/332/original/car-icon-car-icon-car-icon-simple-sign-free-vector.jpg'
+          }
           ratio="3/4"
           sx={{ borderRadius: 2 }}
         />

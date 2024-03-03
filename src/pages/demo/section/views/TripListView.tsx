@@ -8,7 +8,6 @@ import { _courses } from 'src/_mock';
 // components
 import Iconify from 'src/components/iconify';
 //
-import NewsletterElearning from 'src/sections/newsletter/e-learning/NewsletterElearning';
 import TripList from '../trip-list/TripList';
 import TripListFilter from '../trip-list/TripListFilters';
 import { getActiveTrips } from 'src/api/Trip/Trip';
@@ -79,8 +78,6 @@ export default function TripListView() {
           </Box>
         </Stack>
       </Container>
-
-      <NewsletterElearning />
     </>
   );
 }

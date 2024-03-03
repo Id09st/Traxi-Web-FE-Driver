@@ -70,10 +70,15 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
             borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
           }}
         >
-          <Image src={tripDetails?.Vehicle.ImgURL}></Image>
+          <Image
+            src={
+              tripDetails?.Vehicle?.ImgURL ??
+              'https://static.vecteezy.com/system/resources/previews/005/576/332/original/car-icon-car-icon-car-icon-simple-sign-free-vector.jpg'
+            }
+          ></Image>
 
           <TextMaxLine variant="overline" line={1}>
-            {tripDetails?.Vehicle.Mode}
+            {tripDetails?.Vehicle?.Mode ?? 'Loại xe null'}
           </TextMaxLine>
         </Stack>
 
