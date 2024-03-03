@@ -67,12 +67,12 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
       <Stack sx={{ p: 2.5, pb: 0 }}>
         {tripsDriver.Status}
         <Typography variant="body2" sx={{ mt: 0.5, mb: 1 }}>
-          {/* {formatDate(tripDetails?.StartTime)} */}
+          {tripDetails?.Vehicle.Mode ?? ''}
           <Typography>Thu nhập:</Typography>
         </Typography>
       </Stack>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography>{fCurrency(tripDetails?.TotalPrice)}</Typography>
+        <Typography>{fCurrency(tripDetails?.TotalPrice ?? 0)}</Typography>{' '}
       </Stack>
     </Stack>
   );
