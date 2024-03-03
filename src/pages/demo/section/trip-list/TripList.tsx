@@ -17,8 +17,8 @@ export default function TripList({ trips, loading }: Props) {
   return (
     <>
       <Stack spacing={4}>
-        {(loading ? [...Array(9)] : trips).map((course, index) =>
-          course ? <TripItem key={course.id} course={course} /> : <TripItemSkeleton key={index} />
+        {(loading ? [...Array(9)] : trips).map((trip, index) =>
+          trip ? <TripItem key={trip.Id} trip={trip} /> : <TripItemSkeleton key={index} />
         )}
       </Stack>
 

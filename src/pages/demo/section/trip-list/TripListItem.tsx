@@ -25,18 +25,18 @@ import { formatDate } from 'src/utils/formatTime';
 // ----------------------------------------------------------------------
 
 type Props = {
-  course: Trip;
+  trip: Trip;
   vertical?: boolean;
   CustomerId: string;
   BookingDate: string;
   tripDetails: TripDetail;
 };
 
-export default function TripItem({ course, vertical }: Props) {
+export default function TripItem({ trip, vertical }: Props) {
   const [customerInfo, setCustomerInfo] = useState<ICustomerInfo | null>(null);
   const [vehicleInfo, setVehicleInfo] = useState<IVehicleInfo | null>(null);
   const router = useRouter();
-  const { Id, BookingDate, Status, UpDate, CustomerId, DriverId, tripDetails } = course;
+  const { Id, BookingDate, Status, UpDate, CustomerId, DriverId, tripDetails } = trip;
 
   useEffect(() => {
     if (CustomerId) {
@@ -133,7 +133,7 @@ export default function TripItem({ course, vertical }: Props) {
                     {fCurrency(priceSale)}
                   </Box>
                 )} */}
-              {fCurrency(tripDetails.TotalPrice)}
+              {fCurrency(tripDetails?.TotalPrice ?? 0)}
             </Typography>
           </Stack>
         </Stack>
