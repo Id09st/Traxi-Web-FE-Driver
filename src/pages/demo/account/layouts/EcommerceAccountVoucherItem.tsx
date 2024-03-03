@@ -67,7 +67,7 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
       <Stack sx={{ p: 2.5, pb: 0 }}>
         {tripsDriver.Status}
         <Typography variant="body2" sx={{ mt: 0.5, mb: 1 }}>
-          {formatDate(tripDetails?.StartTime)}
+          {/* {formatDate(tripDetails?.StartTime)} */}
           <Typography>Thu nhập:</Typography>
         </Typography>
       </Stack>
