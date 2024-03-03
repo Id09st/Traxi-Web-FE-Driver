@@ -20,7 +20,7 @@ import LoadingScreen from 'src/components/loading-screen';
 
 import TravelTourDetailsHeader from '../trip-list/trip-detail/TripDetailHeader';
 import TravelTourDetailsReserveForm from '../trip-list/trip-detail/TripDetailForm';
-import { Result, TripDetail } from 'src/types/trips';
+import { Result } from 'src/types/trips';
 import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
@@ -31,7 +31,7 @@ interface Type {
 
 export default function TripDetailView({ tripId }: Type) {
   const [loading, setLoading] = useState(true);
-  const [tripDetails, setTripDetails] = useState<TripDetail | null>(null);
+  const [tripDetails, setTripDetails] = useState<Result | null>(null);
   const [status, setStatus] = useState<string | null>(null);
   const router = useRouter();
 
@@ -50,7 +50,7 @@ export default function TripDetailView({ tripId }: Type) {
   }, [tripId]);
 
   if (status === 'Finished') {
-    router.push(`${paths.democompletedtrip}?tripId=${tripDetails.TripId}`);
+    router.push(`${paths.democompletedtrip}?tripId=${tripDetails?.TripId}`);
   } else if (loading || !tripDetails) {
     return <LoadingScreen />;
   }
@@ -59,15 +59,15 @@ export default function TripDetailView({ tripId }: Type) {
     <>
       <Container sx={{ overflow: 'hidden' }}>
         <Typography variant="h3" sx={{ mt: 3, mb: 5 }}>
-          Thông tin chuyến đi
+          Đang trong lộ trình
         </Typography>
 
         <Grid container columnSpacing={8} rowSpacing={5} direction="row-reverse">
           <Grid xs={12} md={5} lg={4}>
-            <TravelTourDetailsReserveForm tour={tripDetails} />
+            <TravelTourDetailsReserveForm tripDetails={tripDetails} />
           </Grid>
           <Grid xs={12} md={7} lg={8}>
-            <TravelTourDetailsHeader tour={tripDetails} />
+            <TravelTourDetailsHeader tripDetails={tripDetails} />
             <Divider sx={{ borderStyle: 'dashed', my: 5 }} />
           </Grid>
         </Grid>

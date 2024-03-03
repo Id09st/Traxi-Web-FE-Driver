@@ -27,11 +27,11 @@ import { Icon } from '@iconify/react';
 // ----------------------------------------------------------------------
 
 type Props = {
-  tour: Result;
+  tripDetails: Result;
 };
 
-export default function TravelTourDetailsHeader({ tour }: Props) {
-  const { TripId, BookingDate, Status, UpDate, CustomerId, DriverId, TripDetail } = tour;
+export default function TravelTourDetailsHeader({ tripDetails }: Props) {
+  const { TripId, BookingDate, Status, UpDate, CustomerId, DriverId, TripDetail } = tripDetails;
 
   const [open, setOpen] = useState<HTMLElement | null>(null);
 

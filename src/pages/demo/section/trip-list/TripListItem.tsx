@@ -2,7 +2,21 @@
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 // @mui
-import { Divider, Stack, Card, Typography, Box, Link, Avatar, Button } from '@mui/material';
+import {
+  Divider,
+  Stack,
+  Card,
+  Typography,
+  Box,
+  Link,
+  Avatar,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from '@mui/material';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import PinDropIcon from '@mui/icons-material/PinDrop';
 // routes
@@ -35,8 +49,17 @@ type Props = {
 export default function TripItem({ trip, vertical }: Props) {
   const [customerInfo, setCustomerInfo] = useState<ICustomerInfo | null>(null);
   const [vehicleInfo, setVehicleInfo] = useState<IVehicleInfo | null>(null);
+
   const router = useRouter();
   const { Id, BookingDate, Status, UpDate, CustomerId, DriverId, tripDetails } = trip;
+
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const showErrorModal = (message: string) => {
+    setErrorMessage(message);
+    setIsErrorModalOpen(true);
+  };
 
   useEffect(() => {
     if (CustomerId) {
@@ -62,13 +85,23 @@ export default function TripItem({ trip, vertical }: Props) {
 
   const handleBookingTrip = async () => {
     try {
-      const { tripId } = await BookingTrip({
-        driverId: '9BB82256-FABB-4BEF-AAB6-59A242E10C5F',
+      const response = await BookingTrip({
+        driverId: '87820505-E6AB-4D90-A5AD-120F6626201F',
         tripId: Id,
       });
-      router.push(`${paths.demotripdetail}?tripId=${Id}`);
+      if (response.error) {
+        showErrorModal(response.error);
+      } else {
+        router.push(`${paths.demotripdetail}?tripId=${Id}`);
+      }
     } catch (error) {
-      console.error('Error booking trip:', error);
+      if (error instanceof Error) {
+        console.error('Error booking trip:', error.message);
+        showErrorModal(error.message);
+      } else {
+        console.error('Error booking trip:', error);
+        showErrorModal('Đã xảy ra lỗi không xác định.');
+      }
     }
   };
 
@@ -101,16 +134,6 @@ export default function TripItem({ trip, vertical }: Props) {
         </Box>
       )}
 
-      {/* {bestSeller && (
-          <Label
-            color="warning"
-            variant="filled"
-            sx={{ top: 12, left: 12, position: 'absolute', textTransform: 'uppercase' }}
-          >
-            Best Seller
-          </Label>
-        )} */}
-
       <Stack spacing={3} sx={{ p: 3 }}>
         <Stack
           spacing={{
@@ -124,17 +147,7 @@ export default function TripItem({ trip, vertical }: Props) {
                 {vehicleInfo.Mode}
               </Typography>
             )}
-            <Typography variant="h4">
-              {/* {priceSale > 0 && (
-                  <Box
-                    component="span"
-                    sx={{ mr: 0.5, color: 'text.disabled', textDecoration: 'line-through' }}
-                  >
-                    {fCurrency(priceSale)}
-                  </Box>
-                )} */}
-              {fCurrency(tripDetails?.TotalPrice ?? 0)}
-            </Typography>
+            <Typography variant="h4">{fCurrency(tripDetails?.TotalPrice ?? 0)}</Typography>
           </Stack>
         </Stack>
 
@@ -162,7 +175,7 @@ export default function TripItem({ trip, vertical }: Props) {
                   wordWrap: 'break-word',
                 }}
               >
-                {tripDetails.EndLocation?.length > 30
+                {tripDetails?.EndLocation?.length > 30
                   ? `${tripDetails.EndLocation.slice(0, 30)}...`
                   : tripDetails.EndLocation ?? ''}{' '}
               </Typography>
@@ -203,7 +216,7 @@ export default function TripItem({ trip, vertical }: Props) {
                   wordWrap: 'break-word',
                 }}
               >
-                {tripDetails.StartLocation?.length > 30
+                {tripDetails?.StartLocation?.length > 30
                   ? `${tripDetails.StartLocation.slice(0, 30)}...`
                   : tripDetails.StartLocation ?? ''}{' '}
               </Typography>
@@ -231,7 +244,7 @@ export default function TripItem({ trip, vertical }: Props) {
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Typography>{formatDate(BookingDate)}</Typography>
           <Typography variant="h4" style={{ color: '#4C9FED' }}>
-            {fRoundToOneDecimal(tripDetails.Distance)} km
+            {fRoundToOneDecimal(tripDetails?.Distance ?? 0)} km
           </Typography>
         </Stack>
         <Stack direction="row" alignItems="center">
@@ -249,13 +262,6 @@ export default function TripItem({ trip, vertical }: Props) {
             Nhận cuốc
           </Button>
         </Stack>
-        {/* <Stack
-            spacing={1.5}
-            direction="row"
-            alignItems="center"
-            flexWrap="wrap"
-            divider={<Divider orientation="vertical" sx={{ height: 20, my: 'auto' }} />}
-          ></Stack> */}
         <Divider
           sx={{
             borderStyle: 'dashed',
@@ -266,6 +272,28 @@ export default function TripItem({ trip, vertical }: Props) {
           }}
         />
       </Stack>
+      <Dialog
+        open={isErrorModalOpen}
+        onClose={() => setIsErrorModalOpen(false)}
+        aria-labelledby="error-dialog-title"
+        aria-describedby="error-dialog-description"
+      >
+        <DialogTitle id="error-dialog-title">Bạn không thể nhận thêm cuốc</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="error-dialog-description">{errorMessage}</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setIsErrorModalOpen(false);
+              router.push('/demo/account/history/history/');
+            }}
+            color="primary"
+          >
+            Lịch sử chuyến
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 }

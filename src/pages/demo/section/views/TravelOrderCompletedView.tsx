@@ -82,7 +82,17 @@ export default function TravelOrderCompletedView({ tripId }: Type) {
             color="inherit"
             startIcon={<Iconify icon="carbon:chevron-left" />}
           >
-            Back Home
+            Trở về
+          </Button>
+          <Button
+            component={NextLink}
+            href="/demo/account/history/history/"
+            variant="contained"
+            size="large"
+            color="inherit"
+            startIcon={<Iconify icon="carbon:package" />}
+          >
+            Lịch sử cuốc
           </Button>
         </Stack>
       </Stack>

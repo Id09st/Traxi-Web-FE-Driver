@@ -10,21 +10,21 @@ import { paths } from 'src/routes/paths';
 // utils
 import { fCurrency } from 'src/utils/formatNumber';
 // types
-import { Result } from 'src/types/trips';
+import { Result, TripDetail } from 'src/types/trips';
 import { tripComplete } from 'src/api/Trip/CompleteTrip';
 //
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  tour: Result;
+  tripDetails: Result;
   tripId: string;
 };
 
-export default function TravelTourDetailsReserveForm({ tour }: Props) {
+export default function TravelTourDetailsReserveForm({ tripDetails }: Props) {
   const { push } = useRouter();
 
-  const { TripDetail } = tour;
+  const { TripDetail } = tripDetails;
 
   const handleCompleteTrip = async () => {
     try {

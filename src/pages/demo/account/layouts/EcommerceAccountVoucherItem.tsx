@@ -1,16 +1,18 @@
 import { differenceInCalendarDays } from 'date-fns';
+import NextLink from 'next/link';
 // @mui
 import { Stack, Typography } from '@mui/material';
 // utils
 import { formatDate } from 'src/utils/formatTime';
 // components
-import Iconify from 'src/components/iconify';
 import Image from 'src/components/image';
 import TextMaxLine from 'src/components/text-max-line';
 import { TripDetail, TripsDriver } from 'src/types/trips';
 import { useEffect, useState } from 'react';
 import { getDetailTrip } from 'src/api/Trip/Trip';
 import { fCurrency } from 'src/utils/formatNumber';
+import { paths } from 'src/routes/paths';
+import { useRouter } from 'next/router';
 
 // ----------------------------------------------------------------------
 
@@ -23,6 +25,15 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
   const [loading, setLoading] = useState(true);
   const [tripDetails, setTripDetails] = useState<TripDetail | null>(null);
   const [status, setStatus] = useState<string | null>(null);
+  const router = useRouter();
+
+  const handleNavigation = () => {
+    if (status === 'Driving') {
+      router.push(`${paths.demotripdetail}?tripId=${tripDetails?.TripId}`);
+    } else if (status === 'Finished') {
+      router.push(`${paths.democompletedtrip}?tripId=${tripDetails?.TripId}`);
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -39,59 +50,55 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
   }, [tripsDriver.Id]);
 
   return (
-    <Stack
-      direction="row"
-      sx={{
-        borderRadius: 1,
-        overflow: 'hidden',
-        border: (theme) => `dashed 1px ${theme.palette.divider}`,
-      }}
-    >
+    <div onClick={handleNavigation} style={{ cursor: 'pointer' }}>
       <Stack
-        spacing={1}
-        alignItems="center"
-        justifyContent="center"
+        direction="row"
         sx={{
-          width: 120,
-          height: 120,
-          flexShrink: 0,
-          borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
+          borderRadius: 1,
+          overflow: 'hidden',
+          border: (theme) => `dashed 1px ${theme.palette.divider}`,
         }}
       >
-        <Image src={tripDetails?.Vehicle.ImgURL}></Image>
+        <Stack
+          spacing={1}
+          alignItems="center"
+          justifyContent="center"
+          sx={{
+            width: 120,
+            height: 120,
+            flexShrink: 0,
+            borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
+          }}
+        >
+          <Image src={tripDetails?.Vehicle.ImgURL}></Image>
 
-        <TextMaxLine variant="overline" line={1}>
-          {tripDetails?.Vehicle.Mode}
-        </TextMaxLine>
+          <TextMaxLine variant="overline" line={1}>
+            {tripDetails?.Vehicle.Mode}
+          </TextMaxLine>
+        </Stack>
+
+        <Stack sx={{ p: 2.5, pb: 0 }}>
+          <Typography
+            sx={{
+              color:
+                tripsDriver.Status === 'Driving'
+                  ? 'orange'
+                  : tripsDriver.Status === 'Finished'
+                  ? 'green'
+                  : 'inherit',
+              fontWeight: 'bold',
+            }}
+          >
+            {tripsDriver.Status}
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 0.5, mb: 1 }}>
+            {formatDate(tripDetails?.StartTime ?? '')}
+          </Typography>
+        </Stack>
+        <Stack direction="row" alignItems="center" justifyContent="space-between">
+          <Typography>{fCurrency(tripDetails?.TotalPrice ?? 0)}</Typography>{' '}
+        </Stack>
       </Stack>
-      <Stack sx={{ p: 2.5, pb: 0 }}>
-        {tripsDriver.Status}
-        <Typography variant="body2" sx={{ mt: 0.5, mb: 1 }}>
-          {tripDetails?.Vehicle.Mode ?? ''}
-          <Typography>Thu nhập:</Typography>
-        </Typography>
-      </Stack>
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography>{fCurrency(tripDetails?.TotalPrice ?? 0)}</Typography>{' '}
-      </Stack>
-    </Stack>
+    </div>
   );
-}
-
-// ----------------------------------------------------------------------
-
-function getIcon(type: string) {
-  let icon;
-
-  switch (type) {
-    case 'shipping':
-      icon = <Iconify icon="carbon:delivery" width={32} />;
-      break;
-    case 'category':
-      icon = <Iconify icon="carbon:cut-out" width={32} />;
-      break;
-    default:
-      icon = <Iconify icon="carbon:star" width={32} />;
-  }
-  return icon;
 }
