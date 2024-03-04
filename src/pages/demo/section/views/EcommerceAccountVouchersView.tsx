@@ -25,11 +25,23 @@ import EcommerceAccountVoucherItem from '../../account/layouts/EcommerceAccountV
 
 export default function EcommerceAccountVouchersView() {
   const [tripsDriver, setTripsDriver] = useState<TripsDriver[] | null>(null);
+  const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    const fetchUserInfo = () => {
+      const userInfoString = localStorage.getItem('USER_INFO');
+      if (userInfoString) {
+        const userInfo = JSON.parse(userInfoString);
+        setUserId(userInfo.id);
+      }
+    };
+    fetchUserInfo();
+  }, []);
 
   useEffect(() => {
     const fetchTripDetails = async () => {
       try {
-        const data = await getDetailTripByDriver('87820505-E6AB-4D90-A5AD-120F6626201F');
+        const data = await getDetailTripByDriver(userId);
         setTripsDriver(data);
         console.log(data);
       } catch (error) {
@@ -38,7 +50,7 @@ export default function EcommerceAccountVouchersView() {
     };
 
     fetchTripDetails();
-  }, ['87820505-E6AB-4D90-A5AD-120F6626201F']);
+  }, [userId]);
 
   return (
     <EcommerceAccountLayout>

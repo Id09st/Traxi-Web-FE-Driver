@@ -27,7 +27,7 @@ export default function MainLayout({ children }: Props) {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: 1 }}>
-      <Header headerOnDark={actionPage(pathsOnDark)} />
+      {/* <Header headerOnDark={actionPage(pathsOnDark)} /> */}
 
       <Box
         component="main"
@@ -39,7 +39,7 @@ export default function MainLayout({ children }: Props) {
         {children}
       </Box>
 
-      <Footer />
+      {/* <Footer /> */}
     </Box>
   );
 }

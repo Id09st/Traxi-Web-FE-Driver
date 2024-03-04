@@ -55,11 +55,23 @@ export default function TripItem({ trip, vertical }: Props) {
 
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [userId, setUserId] = useState('');
 
   const showErrorModal = (message: string) => {
     setErrorMessage(message);
     setIsErrorModalOpen(true);
   };
+
+  useEffect(() => {
+    const fetchUserInfo = () => {
+      const userInfoString = localStorage.getItem('USER_INFO');
+      if (userInfoString) {
+        const userInfo = JSON.parse(userInfoString);
+        setUserId(userInfo.id);
+      }
+    };
+    fetchUserInfo();
+  }, []);
 
   useEffect(() => {
     if (CustomerId) {
@@ -86,7 +98,7 @@ export default function TripItem({ trip, vertical }: Props) {
   const handleBookingTrip = async () => {
     try {
       const response = await BookingTrip({
-        driverId: '87820505-E6AB-4D90-A5AD-120F6626201F',
+        driverId: userId,
         tripId: Id,
       });
       if (response.error) {

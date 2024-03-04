@@ -59,7 +59,6 @@ export default function TravelTourDetailsHeader({ tripDetails }: Props) {
             }}
           />
         ) : (
-          // Render một ảnh mặc định hoặc không render gì nếu không có ImgURL
           <Image
             alt={TripId}
             src="https://static.vecteezy.com/system/resources/previews/005/576/332/original/car-icon-car-icon-car-icon-simple-sign-free-vector.jpg"

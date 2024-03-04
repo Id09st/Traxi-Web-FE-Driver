@@ -22,7 +22,7 @@ export default function TripList({ trips, loading }: Props) {
         )}
       </Stack>
 
-      <Pagination
+      {/* <Pagination
         count={10}
         color="primary"
         size="large"
@@ -32,7 +32,7 @@ export default function TripList({ trips, loading }: Props) {
             justifyContent: 'center',
           },
         }}
-      />
+      /> */}
     </>
   );
 }

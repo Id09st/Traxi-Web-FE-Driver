@@ -24,14 +24,15 @@ import _mock from 'src/_mock';
 // components
 import Iconify from 'src/components/iconify';
 import TextMaxLine from 'src/components/text-max-line';
+import useAuth from 'src/hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
 const navigations = [
   {
-    title: 'Thông tin cá nhân',
-    path: paths.eCommerce.account.personal,
-    icon: <Iconify icon="carbon:user" />,
+    title: 'Danh sách công việc',
+    path: paths.demotriplist,
+    icon: <Iconify icon="solar:document-broken" />,
   },
 
   {
@@ -50,6 +51,7 @@ type Props = {
 
 export default function EcommerceAccountMenu({ open, onClose }: Props) {
   const isMdUp = useResponsive('up', 'md');
+  const { logout } = useAuth();
 
   const renderContent = (
     <Stack
@@ -63,7 +65,7 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
         }),
       }}
     >
-      <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
+      {/* <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
         <Stack spacing={2} direction="row" alignItems="center">
           <Avatar src={_mock.image.avatar(0)} sx={{ width: 64, height: 64 }} />
           <Stack
@@ -84,7 +86,7 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
             nannie_abernathy70@yahoo.com
           </TextMaxLine>
         </Stack>
-      </Stack>
+      </Stack> */}
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 
@@ -103,6 +105,7 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
             height: 44,
             borderRadius: 1,
           }}
+          onClick={logout}
         >
           <ListItemIcon>
             <Iconify icon="carbon:logout" />

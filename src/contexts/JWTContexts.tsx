@@ -147,7 +147,8 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     setSession(null);
     dispatch({ type: Types.LOGOUT });
-    router.push('/login');
+    localStorage.removeItem('USER_INFO');
+    router.push('/demo/auth/login');
   };
 
   return (
