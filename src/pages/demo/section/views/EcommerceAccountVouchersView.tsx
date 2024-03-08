@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { add } from 'date-fns';
 // @mui
 import {
@@ -56,7 +56,6 @@ export default function EcommerceAccountVouchersView() {
       <Typography variant="h4" sx={{ mb: 3 }}>
         Lịch sử cuốc
       </Typography>
-
       <Box
         gap={3}
         display="grid"
@@ -65,12 +64,13 @@ export default function EcommerceAccountVouchersView() {
           md: 'repeat(2, 1fr)',
         }}
       >
-        {tripsDriver &&
-          tripsDriver.map(
-            (
-              trip // Đổi tên biến để tránh shadowing
-            ) => <EcommerceAccountVoucherItem key={trip.Id} tripsDriver={trip} />
-          )}
+        {tripsDriver && (
+          <Suspense fallback={<div>Loading...</div>}>
+            {tripsDriver.map((trip) => (
+              <EcommerceAccountVoucherItem key={trip.Id} tripsDriver={trip} />
+            ))}
+          </Suspense>
+        )}
       </Box>
     </EcommerceAccountLayout>
   );

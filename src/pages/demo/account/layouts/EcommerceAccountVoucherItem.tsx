@@ -42,6 +42,8 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
   };
 
   useEffect(() => {
+    if (!tripsDriver) return; // Thêm điều kiện kiểm tra này
+
     setLoading(true);
     getDetailTrip(tripsDriver.Id)
       .then((data) => {
@@ -53,7 +55,7 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
         console.error('Error fetching trip details:', error);
         setLoading(false);
       });
-  }, [tripsDriver.Id]);
+  }, [tripsDriver]);
 
   // Sửa lỗi lồng biểu thức ba ngôi
   let statusColor = 'inherit';
