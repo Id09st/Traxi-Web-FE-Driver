@@ -38,10 +38,11 @@ export default function EcommerceAccountVouchersView() {
 
   useEffect(() => {
     const fetchTripDetails = async () => {
+      if (!userId) return; // Kiểm tra để đảm bảo userId không phải là chuỗi rỗng hoặc undefined
+
       try {
         const data = await getDetailTripByDriver(userId);
         setTripsDriver(data);
-        console.log(data);
       } catch (error) {
         console.error('Failed to fetch trip details:', error);
       }
