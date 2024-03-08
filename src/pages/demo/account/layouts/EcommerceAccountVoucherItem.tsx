@@ -14,31 +14,19 @@ import { fCurrency } from 'src/utils/formatNumber';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'next/router';
 
-// ----------------------------------------------------------------------
-
 type Props = {
   tripsDriver: TripsDriver;
 };
 
 export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
-  if (!tripsDriver) {
-    return <div>Loading or error message...</div>;
-  }
-
+  // Di chuyển các lời gọi Hooks ra ngoài bất kỳ khối lệnh điều kiện nào
   const [loading, setLoading] = useState(true);
   const [tripDetails, setTripDetails] = useState<TripDetail | null>(null);
   const [status, setStatus] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleNavigation = () => {
-    if (status && tripDetails?.TripId) {
-      const path = status === 'Driving' ? paths.demotripdetail : paths.democompletedtrip;
-      router.push(`${path}?tripId=${tripDetails.TripId}`);
-    }
-  };
-
   useEffect(() => {
-    if (!tripsDriver) return;
+    if (!tripsDriver) return; // Sử dụng điều kiện bên trong useEffect thay vì bao quanh việc gọi useEffect
 
     setLoading(true);
     getDetailTrip(tripsDriver.Id)
@@ -53,6 +41,10 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
       });
   }, [tripsDriver]);
 
+  if (!tripsDriver) {
+    return <div>Loading or error message...</div>;
+  }
+
   let statusColor = 'inherit';
   switch (tripsDriver.Status) {
     case 'Driving':
@@ -65,6 +57,13 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
       break;
   }
 
+  const handleNavigation = () => {
+    if (status && tripDetails?.TripId) {
+      const path = status === 'Driving' ? paths.demotripdetail : paths.democompletedtrip;
+      router.push(`${path}?tripId=${tripDetails.TripId}`);
+    }
+  };
+
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
       handleNavigation();
@@ -72,13 +71,7 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
   };
 
   return (
-    <div
-      onClick={handleNavigation}
-      onKeyDown={handleKeyDown}
-      role="button"
-      tabIndex={0}
-      style={{ cursor: 'pointer' }}
-    >
+    <div onClick={handleNavigation} onKeyDown={handleKeyDown} role="button" tabIndex={0} style={{ cursor: 'pointer' }}>
       <Stack
         direction="row"
         sx={{
