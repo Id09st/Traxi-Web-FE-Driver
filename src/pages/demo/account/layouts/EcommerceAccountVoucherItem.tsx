@@ -21,29 +21,25 @@ type Props = {
 };
 
 export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
-  console.log('1', tripsDriver);
+  if (!tripsDriver) {
+    return <div>Loading or error message...</div>;
+  }
+
   const [loading, setLoading] = useState(true);
   const [tripDetails, setTripDetails] = useState<TripDetail | null>(null);
   const [status, setStatus] = useState<string | null>(null);
   const router = useRouter();
 
   const handleNavigation = () => {
-    if (status === 'Driving') {
-      router.push(`${paths.demotripdetail}?tripId=${tripDetails?.TripId}`);
-    } else if (status === 'Finished') {
-      router.push(`${paths.democompletedtrip}?tripId=${tripDetails?.TripId}`);
-    }
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      handleNavigation();
+    if (status && tripDetails?.TripId) {
+      const path = status === 'Driving' ? paths.demotripdetail : paths.democompletedtrip;
+      router.push(`${path}?tripId=${tripDetails.TripId}`);
     }
   };
 
   useEffect(() => {
-    if (!tripsDriver) return; // Thêm điều kiện kiểm tra này
-    
+    if (!tripsDriver) return;
+
     setLoading(true);
     getDetailTrip(tripsDriver.Id)
       .then((data) => {
@@ -57,13 +53,23 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
       });
   }, [tripsDriver]);
 
-  // Sửa lỗi lồng biểu thức ba ngôi
   let statusColor = 'inherit';
-  if (tripsDriver.Status === 'Driving') {
-    statusColor = 'orange';
-  } else if (tripsDriver.Status === 'Finished') {
-    statusColor = 'green';
+  switch (tripsDriver.Status) {
+    case 'Driving':
+      statusColor = 'orange';
+      break;
+    case 'Finished':
+      statusColor = 'green';
+      break;
+    default:
+      break;
   }
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      handleNavigation();
+    }
+  };
 
   return (
     <div
