@@ -26,14 +26,16 @@ export default function EcommerceAccountVouchersView() {
   const [userId, setUserId] = useState('');
 
   useEffect(() => {
-    const fetchUserInfo = () => {
-      const userInfoString = localStorage.getItem('USER_INFO');
-      if (userInfoString) {
-        const userInfo = JSON.parse(userInfoString);
-        setUserId(userInfo.id);
-      }
-    };
-    fetchUserInfo();
+    if (typeof window !== 'undefined') {
+      const fetchUserInfo = () => {
+        const userInfoString = localStorage.getItem('USER_INFO');
+        if (userInfoString) {
+          const userInfo = JSON.parse(userInfoString);
+          setUserId(userInfo.id);
+        }
+      };
+      fetchUserInfo();
+    }
   }, []);
 
   useEffect(() => {
