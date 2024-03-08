@@ -45,8 +45,8 @@ function result(format: string, key = '.00') {
 
 export function truncateString(str: string | null, num: number) {
   if (str && str.length > num) {
-    return str.slice(0, num) + '...';
-  } else {
-    return str;
+    return `${str.slice(0, num)}...`; // Sử dụng template literals
   }
+  // Loại bỏ 'else' sau 'return'
+  return str;
 }
