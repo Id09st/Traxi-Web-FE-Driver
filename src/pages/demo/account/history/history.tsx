@@ -2,9 +2,10 @@
 import Head from 'next/head';
 // layouts
 import MainLayout from 'src/layouts/main';
+// components
+import ItemList from 'src/components/ItemList';
 // sections
 import EcommerceAccountVouchersView from '../../section/views/EcommerceAccountVouchersView';
-import ItemList from 'src/components/ItemList';
 
 // ----------------------------------------------------------------------
 

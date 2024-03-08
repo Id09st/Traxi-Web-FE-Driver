@@ -14,25 +14,23 @@ type ErrorModalProps = {
   onClose: () => void;
 };
 
-const ErrorModal: React.FC<ErrorModalProps> = ({ open, errorMessage, onClose }) => {
-  return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      aria-labelledby="error-dialog-title"
-      aria-describedby="error-dialog-description"
-    >
-      <DialogTitle id="error-dialog-title">Lỗi</DialogTitle>
-      <DialogContent>
-        <DialogContentText id="error-dialog-description">{errorMessage}</DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="primary">
-          Đóng
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
+const ErrorModal: React.FC<ErrorModalProps> = ({ open, errorMessage, onClose }) => (
+  <Dialog
+    open={open}
+    onClose={onClose}
+    aria-labelledby="error-dialog-title"
+    aria-describedby="error-dialog-description"
+  >
+    <DialogTitle id="error-dialog-title">Lỗi</DialogTitle>
+    <DialogContent>
+      <DialogContentText id="error-dialog-description">{errorMessage}</DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={onClose} color="primary">
+        Đóng
+      </Button>
+    </DialogActions>
+  </Dialog>
+);
 
 export default ErrorModal;

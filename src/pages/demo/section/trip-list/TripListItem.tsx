@@ -93,7 +93,7 @@ export default function TripItem({ trip, vertical }: Props) {
       .catch((error) => {
         console.error('Lỗi khi lấy thông tin xe:', error);
       });
-  }, []);
+  }, [Id]);
 
   const handleBookingTrip = async () => {
     try {
@@ -178,7 +178,7 @@ export default function TripItem({ trip, vertical }: Props) {
                 background: '#F7F7F7',
                 borderRadius: 8,
               }}
-            ></div>
+            />
             <div style={{ width: 248, height: 44, left: 11, top: 9, position: 'absolute' }}>
               <Typography
                 style={{

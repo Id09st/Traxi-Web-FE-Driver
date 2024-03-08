@@ -10,7 +10,7 @@ import { paths } from 'src/routes/paths';
 // utils
 import { fCurrency } from 'src/utils/formatNumber';
 // types
-import { Result, TripDetail } from 'src/types/trips';
+import { Result, TripDetail as TripDetailType } from 'src/types/trips'; // Đổi tên kiểu nhập khẩu
 import { tripComplete } from 'src/api/Trip/CompleteTrip';
 //
 
@@ -18,7 +18,6 @@ import { tripComplete } from 'src/api/Trip/CompleteTrip';
 
 type Props = {
   tripDetails: Result;
-  tripId: string;
 };
 
 export default function TravelTourDetailsReserveForm({ tripDetails }: Props) {
@@ -50,7 +49,7 @@ export default function TravelTourDetailsReserveForm({ tripDetails }: Props) {
                 background: '#F7F7F7',
                 borderRadius: 8,
               }}
-            ></div>
+            />
             <div style={{ width: 248, height: 44, left: 11, top: 9, position: 'absolute' }}>
               <Typography
                 style={{
@@ -92,7 +91,7 @@ export default function TravelTourDetailsReserveForm({ tripDetails }: Props) {
                   position: 'absolute',
                   border: '1px #CCCCCC solid',
                 }}
-              ></div>
+              />
               <Typography
                 style={{
                   left: 25,

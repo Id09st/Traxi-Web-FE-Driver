@@ -35,6 +35,12 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
     }
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      handleNavigation();
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
     getDetailTrip(tripsDriver.Id)
@@ -49,8 +55,22 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
       });
   }, [tripsDriver.Id]);
 
+  // Sửa lỗi lồng biểu thức ba ngôi
+  let statusColor = 'inherit';
+  if (tripsDriver.Status === 'Driving') {
+    statusColor = 'orange';
+  } else if (tripsDriver.Status === 'Finished') {
+    statusColor = 'green';
+  }
+
   return (
-    <div onClick={handleNavigation} style={{ cursor: 'pointer' }}>
+    <div
+      onClick={handleNavigation}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      style={{ cursor: 'pointer' }}
+    >
       <Stack
         direction="row"
         sx={{
@@ -73,10 +93,9 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
           <Image
             src={
               tripDetails?.Vehicle?.ImgURL ??
-              'https://static.vecteezy.com/system/resources/previews/005/576/332/original/car-icon-car-icon-car-icon-simple-sign-free-vector.jpg'
+              'https://static.vecteezy.com/system/resources/previews/005/576/332/original/car-icon-simple-sign-free-vector.jpg'
             }
-          ></Image>
-
+          />
           <TextMaxLine variant="overline" line={1}>
             {tripDetails?.Vehicle?.Mode ?? 'Loại xe null'}
           </TextMaxLine>
@@ -85,12 +104,7 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
         <Stack sx={{ p: 2.5, pb: 0 }}>
           <Typography
             sx={{
-              color:
-                tripsDriver.Status === 'Driving'
-                  ? 'orange'
-                  : tripsDriver.Status === 'Finished'
-                  ? 'green'
-                  : 'inherit',
+              color: statusColor,
               fontWeight: 'bold',
             }}
           >
@@ -101,7 +115,7 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
           </Typography>
         </Stack>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Typography>{fCurrency(tripDetails?.TotalPrice ?? 0)}</Typography>{' '}
+          <Typography>{fCurrency(tripDetails?.TotalPrice ?? 0)}</Typography>
         </Stack>
       </Stack>
     </div>

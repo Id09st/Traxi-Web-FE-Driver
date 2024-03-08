@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useReducer } from 'react';
+import React, { createContext, useEffect, useReducer, useMemo } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { API_ROOT } from 'src/utils/constants';
@@ -151,15 +151,16 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     router.push('/demo/auth/login');
   };
 
+  // Sử dụng useMemo để đảm bảo đối tượng value chỉ được tính toán lại khi state thay đổi
+  const value = useMemo(() => ({
+    ...state,
+    method: 'jwt',
+    login,
+    logout,
+  }), [state, login, logout]);
+
   return (
-    <AuthContext.Provider
-      value={{
-        ...state,
-        method: 'jwt',
-        login,
-        logout,
-      }}
-    >
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );

@@ -20,10 +20,9 @@ export const getActiveTrips = async (): Promise<Trip[]> => {
     if (Array.isArray(response.data.result)) {
       const trips = response.data.result.map((tripResult: TripResult) => tripResult.trip);
       return trips;
-    } else {
-      console.error('Expected an array for result, but did not find one.');
-      return [];
     }
+    console.error('Expected an array for result, but did not find one.');
+    return [];
   } catch (error) {
     console.error('Error when calling getActiveTrips:', error);
     throw error;
@@ -46,10 +45,9 @@ export const getDetailVehiclesByTrip = async (tripId: string) => {
     if (response.data && response.data.result) {
       const vehicleInfo = response.data.result.TripDetail.Vehicle;
       return vehicleInfo;
-    } else {
-      console.error('No result found for this tripId:', tripId);
-      return null;
     }
+    console.error('No result found for this tripId:', tripId);
+    return null;
   } catch (error) {
     console.error('Error when calling getDetailTrip:', error);
     throw error;
