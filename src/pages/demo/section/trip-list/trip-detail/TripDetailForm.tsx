@@ -10,7 +10,7 @@ import { paths } from 'src/routes/paths';
 // utils
 import { fCurrency } from 'src/utils/formatNumber';
 // types
-import { Result, TripDetail as TripDetailType } from 'src/types/trips'; // Đổi tên kiểu nhập khẩu
+import { Result, TripDetail as TripDetailType } from 'src/types/trips';
 import { tripComplete } from 'src/api/Trip/CompleteTrip';
 //
 
@@ -18,9 +18,10 @@ import { tripComplete } from 'src/api/Trip/CompleteTrip';
 
 type Props = {
   tripDetails: Result;
+  tripId: string;
 };
 
-export default function TravelTourDetailsReserveForm({ tripDetails }: Props) {
+export default function TravelTourDetailsReserveForm({ tripDetails, tripId }: Props) {
   const { push } = useRouter();
 
   const { TripDetail } = tripDetails;
