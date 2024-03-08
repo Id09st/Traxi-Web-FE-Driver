@@ -5,7 +5,7 @@ import { Container, Stack, Button, Typography, Box } from '@mui/material';
 // routes
 import { paths } from 'src/routes/paths';
 // types
-import { ITourProps } from 'src/types/trips';
+import { ITourProps } from 'src/types/tour';
 //
 import TravelTourItem from '../tour/item/TravelTourItem';
 

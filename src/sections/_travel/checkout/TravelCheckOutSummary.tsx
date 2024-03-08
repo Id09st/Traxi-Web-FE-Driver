@@ -6,7 +6,7 @@ import { fCurrency, fShortenNumber } from 'src/utils/formatNumber';
 // hooks
 import useResponsive from 'src/hooks/useResponsive';
 // types
-import { ITourProps } from 'src/types/trips';
+import { ITourProps } from 'src/types/tour';
 // components
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';

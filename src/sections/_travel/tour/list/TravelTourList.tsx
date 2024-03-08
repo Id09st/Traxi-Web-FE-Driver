@@ -1,7 +1,7 @@
 // @mui
 import { Pagination, Box } from '@mui/material';
 // types
-import { ITourProps } from 'src/types/trips';
+import { ITourProps } from 'src/types/tour';
 //
 import { TravelTourItem, TravelTourItemSkeleton } from '../item';
 

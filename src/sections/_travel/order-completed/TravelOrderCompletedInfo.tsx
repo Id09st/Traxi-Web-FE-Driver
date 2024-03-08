@@ -5,7 +5,7 @@ import { fShortenNumber } from 'src/utils/formatNumber';
 // components
 import Iconify from 'src/components/iconify';
 // types
-import { ITourProps } from 'src/types/trips';
+import { ITourProps } from 'src/types/tour';
 
 // ----------------------------------------------------------------------
 

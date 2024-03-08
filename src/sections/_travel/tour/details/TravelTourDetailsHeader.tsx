@@ -14,7 +14,7 @@ import {
 // utils
 import { fShortenNumber } from 'src/utils/formatNumber';
 // types
-import { ITourProps } from 'src/types/trips';
+import { ITourProps } from 'src/types/tour';
 // _mock
 import { _socials } from 'src/_mock';
 // components

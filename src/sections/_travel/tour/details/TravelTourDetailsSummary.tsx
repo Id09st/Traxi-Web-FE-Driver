@@ -3,7 +3,7 @@ import { Typography, Stack, Box, Divider } from '@mui/material';
 // utils
 import { fDate } from 'src/utils/formatTime';
 // types
-import { ITourProps } from 'src/types/trips';
+import { ITourProps } from 'src/types/tour';
 // components
 import Iconify, { IconifyProps } from 'src/components/iconify';
 

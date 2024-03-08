@@ -6,7 +6,7 @@ import useResponsive from 'src/hooks/useResponsive';
 // utils
 import { bgGradient } from 'src/utils/cssStyles';
 // types
-import { ITourProps } from 'src/types/trips';
+import { ITourProps } from 'src/types/tour';
 // components
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';

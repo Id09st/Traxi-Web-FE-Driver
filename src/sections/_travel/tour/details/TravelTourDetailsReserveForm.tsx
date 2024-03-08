@@ -9,7 +9,7 @@ import { paths } from 'src/routes/paths';
 // utils
 import { fCurrency } from 'src/utils/formatNumber';
 // types
-import { ITourProps } from 'src/types/trips';
+import { ITourProps } from 'src/types/tour';
 //
 import { TravelFilterTime, TravelFilterGuests } from '../filters/components';
 

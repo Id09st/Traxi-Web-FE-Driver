@@ -7,7 +7,7 @@ import useResponsive from 'src/hooks/useResponsive';
 // routes
 import { paths } from 'src/routes/paths';
 // types
-import { ITourProps } from 'src/types/trips';
+import { ITourProps } from 'src/types/tour';
 // components
 import Iconify from 'src/components/iconify';
 //

@@ -9,7 +9,7 @@ import { Box, Stack, Divider, Container, Typography, Unstable_Grid2 as Grid } fr
 // routes
 import { paths } from 'src/routes/paths';
 // types
-import { ITourCheckoutProps } from 'src/types/trips';
+import { ITourCheckoutProps } from 'src/types/tour';
 // _mock
 import { _tours } from 'src/_mock';
 // components
