@@ -71,7 +71,7 @@ requestLogin.interceptors.response.use(
 );
 
 class AxiosClientFactory {
-  getAxiosClient(type: string, config: AxiosRequestConfig = {}): AxiosInstance | undefined {
+  static getAxiosClient(type: string, config: AxiosRequestConfig = {}): AxiosInstance | undefined {
     switch (type) {
       case AxiosClientFactoryEnum.LOGIN:
         return requestLogin;
@@ -84,7 +84,7 @@ class AxiosClientFactory {
 const axiosClientFactory = new AxiosClientFactory();
 
 export const axiosInstances = {
-  login: axiosClientFactory.getAxiosClient(AxiosClientFactoryEnum.LOGIN),
+  login: AxiosClientFactory.getAxiosClient(AxiosClientFactoryEnum.LOGIN),
 };
 
 export default requestWebDriver;

@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useReducer, useMemo } from 'react';
+import React, { createContext, useEffect, useReducer, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { API_ROOT } from 'src/utils/constants';
@@ -111,7 +111,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     initialize();
   }, []);
 
-  const login = async (phone: string, password: string) => {
+  const login = useCallback(async (phone: string, password: string) => {
     try {
       const response = await axios.post(`${API_ROOT}/api/v1/login/driver`, {
         phone,
@@ -142,7 +142,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       const error = err as { response: { data: { message: string } } };
       throw new Error(error.response.data.message || 'Đăng nhập thất bại.');
     }
-  };
+  }, [router]); // Thêm router vào mảng phụ thuộc
 
   const logout = () => {
     setSession(null);

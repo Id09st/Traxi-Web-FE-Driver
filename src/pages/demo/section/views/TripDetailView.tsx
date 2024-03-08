@@ -11,17 +11,17 @@ import {
   Unstable_Grid2 as Grid,
 } from '@mui/material';
 // routes
+import { paths } from 'src/routes/paths';
 // api
 import { _socials, _tours } from 'src/_mock';
 import { getDetailTrip } from 'src/api/Trip/Trip';
+// types
+import { Result } from 'src/types/trips';
 // components
 import LoadingScreen from 'src/components/loading-screen';
-//
-
 import TravelTourDetailsHeader from '../trip-list/trip-detail/TripDetailHeader';
 import TravelTourDetailsReserveForm from '../trip-list/trip-detail/TripDetailForm';
-import { Result } from 'src/types/trips';
-import { paths } from 'src/routes/paths';
+//
 
 // ----------------------------------------------------------------------
 

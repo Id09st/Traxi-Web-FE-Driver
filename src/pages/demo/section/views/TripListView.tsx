@@ -5,13 +5,15 @@ import { Container, Stack, Typography, Button, Box } from '@mui/material';
 import { NAV } from 'src/config-global';
 // _mock
 import { _courses } from 'src/_mock';
+// api
+import { getActiveTrips } from 'src/api/Trip/Trip';
+// types
+import { Trip } from 'src/types/trip';
 // components
 import Iconify from 'src/components/iconify';
-//
 import TripList from '../trip-list/TripList';
 import TripListFilter from '../trip-list/TripListFilters';
-import { getActiveTrips } from 'src/api/Trip/Trip';
-import { Trip } from 'src/types/trip';
+//
 
 // ----------------------------------------------------------------------
 

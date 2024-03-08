@@ -1,12 +1,13 @@
 // next
 import Head from 'next/head';
-// layouts
-import MainLayout from 'src/layouts/main';
-// sections
-import TripDetailView from '../section/views/TripDetailView';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+// api
 import { getDetailTrip } from 'src/api/Trip/Trip';
+// sections
+import TripDetailView from '../section/views/TripDetailView';
+// layouts
+import MainLayout from 'src/layouts/main';
 
 // ----------------------------------------------------------------------
 

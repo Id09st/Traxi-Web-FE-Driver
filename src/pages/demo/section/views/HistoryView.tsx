@@ -20,11 +20,7 @@ import {
 } from '@mui/material';
 // _mock
 import { _productsTable } from 'src/_mock';
-// components
-import Iconify from 'src/components/iconify';
-import Scrollbar from 'src/components/scrollbar';
-//
-import EcommerceAccountLayout from '../../account/layouts/EcommerceAccountLayout';
+// sections
 import {
   stableSort,
   getComparator,
@@ -32,6 +28,10 @@ import {
   EcommerceAccountOrdersTableHead,
   EcommerceAccountOrdersTableToolbar,
 } from 'src/sections/_e-commerce/account/orders';
+// components
+import Iconify from 'src/components/iconify';
+import Scrollbar from 'src/components/scrollbar';
+import EcommerceAccountLayout from '../../account/layouts/EcommerceAccountLayout';
 
 // ----------------------------------------------------------------------
 

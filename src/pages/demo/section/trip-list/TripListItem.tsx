@@ -220,7 +220,7 @@ export default function TripItem({ trip, vertical }: Props) {
                   position: 'absolute',
                   border: '1px #CCCCCC solid',
                 }}
-              ></div>
+              />
               <Typography
                 style={{
                   left: 25,

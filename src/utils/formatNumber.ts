@@ -9,9 +9,10 @@ export function fNumber(number: InputValue) {
 }
 
 export function fCurrency(number: number) {
-  const format = number ? numeral(number).format('0,0') + '₫' : '0₫';
+  const format = number ? `${numeral(number).format('0,0')}₫` : '0₫';
   return format;
 }
+
 export function fRoundToOneDecimal(number: InputValue) {
   const format = number ? numeral(number).format('0.0') : '';
 

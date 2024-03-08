@@ -2,9 +2,10 @@
 import Head from 'next/head';
 // layouts
 import MainLayout from 'src/layouts/main';
+// components
+import ItemList from 'src/components/ItemList';
 // sections
 import TripListView from '../section/views/TripListView';
-import ItemList from 'src/components/ItemList';
 
 // ----------------------------------------------------------------------
 

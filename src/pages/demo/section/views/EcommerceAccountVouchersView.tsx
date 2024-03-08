@@ -1,5 +1,5 @@
-import { add } from 'date-fns';
 import { useEffect, useState } from 'react';
+import { add } from 'date-fns';
 // @mui
 import {
   Box,
@@ -13,15 +13,13 @@ import {
 } from '@mui/material';
 // _mock
 import _mock from 'src/_mock';
-//
-import EcommerceAccountLayout from '../../account/layouts/EcommerceAccountLayout';
-import { getDetailTripByDriver } from 'src/api/Trip/Trip';
+// types
 import { TripsDriver } from 'src/types/trips';
+// api
+import { getDetailTripByDriver } from 'src/api/Trip/Trip';
+// components
+import EcommerceAccountLayout from '../../account/layouts/EcommerceAccountLayout';
 import EcommerceAccountVoucherItem from '../../account/layouts/EcommerceAccountVoucherItem';
-
-// ----------------------------------------------------------------------
-
-// ----------------------------------------------------------------------
 
 export default function EcommerceAccountVouchersView() {
   const [tripsDriver, setTripsDriver] = useState<TripsDriver[] | null>(null);
@@ -67,9 +65,11 @@ export default function EcommerceAccountVouchersView() {
         }}
       >
         {tripsDriver &&
-          tripsDriver.map((tripsDriver) => (
-            <EcommerceAccountVoucherItem key={tripsDriver.Id} tripsDriver={tripsDriver} />
-          ))}
+          tripsDriver.map(
+            (
+              trip // Đổi tên biến để tránh shadowing
+            ) => <EcommerceAccountVoucherItem key={trip.Id} tripsDriver={trip} />
+          )}
       </Box>
     </EcommerceAccountLayout>
   );
