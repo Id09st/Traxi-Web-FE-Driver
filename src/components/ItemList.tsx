@@ -1,41 +1,25 @@
-import { useEffect, useState } from 'react';
-import { ref, onValue, off } from 'firebase/database';
-import { database } from '../utils/firebase';
+import React, { useEffect } from 'react';
+import { useSocket } from 'src/contexts/SocketContexts';
 
-export const ItemList = () => {
-  const [items, setItems] = useState<any[]>([]);
+const SomeComponent: React.FC = () => {
+  const socket = useSocket();
 
   useEffect(() => {
-    const itemsRef = ref(database, 'All Ride Requests');
-    onValue(itemsRef, (snapshot) => {
-      const data = snapshot.val();
+    if (socket) {
+      socket.on('someEvent', (data) => {
+        console.log(data);
+      });
 
-      const itemList = data
-        ? Object.keys(data).map((key) => ({
-            id: key,
-            ...data[key],
-          }))
-        : [];
-      setItems(itemList);
-    });
+      // Gửi sự kiện
+      socket.emit('anotherEvent', { my: 'data' });
+    }
 
     return () => {
-      off(itemsRef);
+      socket?.off('someEvent');
     };
-  }, []);
+  }, [socket]);
 
-  console.log('Đây nè', items);
-
-  return (
-    <div>
-      <h2>Danh sách mục</h2>
-      <ul>
-        {items.map((item) => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
+  return <div>Component sử dụng Socket.IO</div>;
 };
 
-export default ItemList;
+export default SomeComponent;

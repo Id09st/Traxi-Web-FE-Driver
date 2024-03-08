@@ -51,14 +51,6 @@ export default function DemoLoginBackgroundView() {
         </div>
 
         <AuthLoginForm />
-
-        <Divider>
-          <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-            hoặc đăng nhập với
-          </Typography>
-        </Divider>
-
-        <AuthWithSocial />
       </Stack>
     </StyledRoot>
   );

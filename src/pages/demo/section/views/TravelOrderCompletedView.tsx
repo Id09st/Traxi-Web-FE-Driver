@@ -14,7 +14,7 @@ import { _tours } from 'src/_mock';
 //
 import { useEffect, useState } from 'react';
 import { getDetailTrip } from 'src/api/Trip/Trip';
-import { Result } from 'src/types/trips';
+import { TripDetail } from 'src/types/trips';
 import TravelOrderCompletedSummary from 'src/pages/demo/section/trip-list/complete-trip/TravelOrderCompletedSummary';
 
 // ----------------------------------------------------------------------
@@ -24,10 +24,20 @@ interface Type {
   tripDetails: Result;
 }
 
+interface Result {
+  TripId: string;
+  BookingDate: string;
+  Status: string;
+  UpDate: string;
+  CustomerId: string;
+  DriverId: string | null;
+  TripDetail: TripDetail;
+}
+
 export default function TravelOrderCompletedView({ tripId }: Type) {
   const isMdUp = useResponsive('up', 'md');
   const [loading, setLoading] = useState(true);
-  const [tripDetails, setTripDetails] = useState(null);
+  const [tripDetails, setTripDetails] = useState<Result | null>(null);
 
   useEffect(() => {
     setLoading(true);

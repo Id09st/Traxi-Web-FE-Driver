@@ -9,7 +9,7 @@ export interface Result {
   Status: string;
   UpDate: string;
   CustomerId: string;
-  DriverId: string;
+  DriverId: string | null;
   TripDetail: TripDetail;
 }
 

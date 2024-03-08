@@ -54,7 +54,7 @@ export default function TripDetailView({ tripId }: Type) {
   } else if (loading || !tripDetails) {
     return <LoadingScreen />;
   }
-
+  console.log('3', tripDetails);
   return (
     <>
       <Container sx={{ overflow: 'hidden' }}>
@@ -62,15 +62,17 @@ export default function TripDetailView({ tripId }: Type) {
           Đang trong lộ trình
         </Typography>
 
-        <Grid container columnSpacing={8} rowSpacing={5} direction="row-reverse">
-          <Grid xs={12} md={5} lg={4}>
-            <TravelTourDetailsReserveForm tripDetails={tripDetails} />
+        {tripDetails && (
+          <Grid container columnSpacing={8} rowSpacing={5} direction="row-reverse">
+            <Grid xs={12} md={5} lg={4}>
+              <TravelTourDetailsReserveForm tripDetails={tripDetails} tripId={tripDetails.TripId} />
+            </Grid>
+            <Grid xs={12} md={7} lg={8}>
+              <TravelTourDetailsHeader tripDetails={tripDetails} />
+              <Divider sx={{ borderStyle: 'dashed', my: 5 }} />
+            </Grid>
           </Grid>
-          <Grid xs={12} md={7} lg={8}>
-            <TravelTourDetailsHeader tripDetails={tripDetails} />
-            <Divider sx={{ borderStyle: 'dashed', my: 5 }} />
-          </Grid>
-        </Grid>
+        )}
       </Container>
       <Divider sx={{ my: 10 }} />
     </>

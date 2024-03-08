@@ -114,5 +114,4 @@ export const paths = {
   demotripdetail: '/demo/trip/trip-detail',
   democompletedtrip: '/demo/trip/completed-trip',
   demohistory: '/demo/account/history/history',
-  
 };

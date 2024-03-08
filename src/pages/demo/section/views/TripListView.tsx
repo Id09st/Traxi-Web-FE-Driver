@@ -37,7 +37,7 @@ export default function TripListView() {
   const handleMobileClose = () => {
     setMobileOpen(false);
   };
-
+  console.log('1', trips);
   return (
     <>
       <Container>

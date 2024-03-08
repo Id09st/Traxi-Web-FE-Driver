@@ -14,11 +14,22 @@ type Props = {
 };
 
 export default function TripList({ trips, loading }: Props) {
+  console.log('2', trips);
   return (
     <>
       <Stack spacing={4}>
         {(loading ? [...Array(9)] : trips).map((trip, index) =>
-          trip ? <TripItem key={trip.Id} trip={trip} /> : <TripItemSkeleton key={index} />
+          trip ? (
+            <TripItem
+              key={trip.Id}
+              trip={trip}
+              CustomerId={trip.CustomerId}
+              BookingDate={trip.BookingDate}
+              tripDetails={trip.tripDetails}
+            />
+          ) : (
+            <TripItemSkeleton key={index} />
+          )
         )}
       </Stack>
 
