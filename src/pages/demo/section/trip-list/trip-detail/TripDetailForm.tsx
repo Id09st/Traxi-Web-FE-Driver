@@ -127,20 +127,6 @@ export default function TravelTourDetailsReserveForm({ tripDetails, tripId }: Pr
             </div>
           </div>
         </>
-
-        <Stack spacing={1} direction="row" alignItems="center" justifyContent="space-between">
-          <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-            Service charge
-          </Typography>
-          {/* <Typography variant="body2">{fCurrency(TripDetail.TotalPrice) || '-'}</Typography> */}
-        </Stack>
-
-        <Stack spacing={1} direction="row" alignItems="center" justifyContent="space-between">
-          <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-            Discount
-          </Typography>
-          <Typography variant="body2"></Typography>
-        </Stack>
       </Stack>
 
       <Divider sx={{ borderStyle: 'dashed' }} />

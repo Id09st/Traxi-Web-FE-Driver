@@ -144,14 +144,14 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [router]); // Thêm router vào mảng phụ thuộc
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setSession(null);
     dispatch({ type: Types.LOGOUT });
     localStorage.removeItem('USER_INFO');
     router.push('/demo/auth/login');
-  };
+  }, [router]); // Đảm bảo rằng hàm logout không thay đổi giữa các lần render trừ khi router thay đổi
 
-  // Sử dụng useMemo để đảm bảo đối tượng value chỉ được tính toán lại khi state thay đổi
+  // Sử dụng useMemo để đảm bảo đối tượng value chỉ được tính toán lại khi state, login, hoặc logout thay đổi
   const value = useMemo(() => ({
     ...state,
     method: 'jwt',
