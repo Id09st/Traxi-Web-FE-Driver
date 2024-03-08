@@ -54,7 +54,6 @@ export default function TripDetailView({ tripId }: Type) {
   } else if (loading || !tripDetails) {
     return <LoadingScreen />;
   }
-  console.log('3', tripDetails);
   return (
     <>
       <Container sx={{ overflow: 'hidden' }}>

@@ -21,7 +21,7 @@ import TravelOrderCompletedSummary from 'src/pages/demo/section/trip-list/comple
 
 interface Type {
   tripId: string;
-  tripDetails: Result;
+ 
 }
 
 interface Result {

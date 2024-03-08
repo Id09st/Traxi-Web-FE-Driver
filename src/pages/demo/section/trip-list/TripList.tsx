@@ -14,7 +14,6 @@ type Props = {
 };
 
 export default function TripList({ trips, loading }: Props) {
-  console.log('2', trips);
   return (
     <>
       <Stack spacing={4}>
