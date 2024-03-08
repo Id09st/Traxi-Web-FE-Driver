@@ -22,7 +22,12 @@ import PinDropIcon from '@mui/icons-material/PinDrop';
 // routes
 import { paths } from 'src/routes/paths';
 // utils
-import { fCurrency, fRoundToOneDecimal, fShortenNumber } from 'src/utils/formatNumber';
+import {
+  fCurrency,
+  fRoundToOneDecimal,
+  fShortenNumber,
+  truncateString,
+} from 'src/utils/formatNumber';
 // types
 import { IVehicleInfo } from 'src/types/vehicle';
 import { Trip, TripDetail } from 'src/types/trip';
@@ -47,6 +52,7 @@ type Props = {
 };
 
 export default function TripItem({ trip, vertical }: Props) {
+  console.log('TripItem trip:', trip);
   const [customerInfo, setCustomerInfo] = useState<ICustomerInfo | null>(null);
   const [vehicleInfo, setVehicleInfo] = useState<IVehicleInfo | null>(null);
 
@@ -162,7 +168,9 @@ export default function TripItem({ trip, vertical }: Props) {
                 {vehicleInfo.Mode}
               </Typography>
             )}
-            <Typography variant="h4">{fCurrency(tripDetails?.TotalPrice ?? 0)}</Typography>
+            <Typography variant="h4">
+              {tripDetails?.TotalPrice ? fCurrency(tripDetails.TotalPrice) : 'null'}
+            </Typography>
           </Stack>
         </Stack>
 
@@ -190,9 +198,8 @@ export default function TripItem({ trip, vertical }: Props) {
                   wordWrap: 'break-word',
                 }}
               >
-                {tripDetails?.EndLocation?.length > 30
-                  ? `${tripDetails.EndLocation.slice(0, 30)}...`
-                  : tripDetails.EndLocation ?? ''}{' '}
+                {truncateString(tripDetails?.StartLocation, 30) ??
+                  'Địa điểm bắt đầu không xác định'}
               </Typography>
               <div
                 style={{
@@ -231,9 +238,7 @@ export default function TripItem({ trip, vertical }: Props) {
                   wordWrap: 'break-word',
                 }}
               >
-                {tripDetails?.StartLocation?.length > 30
-                  ? `${tripDetails.StartLocation.slice(0, 30)}...`
-                  : tripDetails.StartLocation ?? ''}{' '}
+                {truncateString(tripDetails?.EndLocation, 30) ?? 'Địa điểm kết thúc không xác định'}
               </Typography>
               <div style={{ width: 18, height: 28, left: 0, top: 0, position: 'absolute' }}>
                 <div
@@ -259,7 +264,7 @@ export default function TripItem({ trip, vertical }: Props) {
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Typography>{formatDate(BookingDate)}</Typography>
           <Typography variant="h4" style={{ color: '#4C9FED' }}>
-            {fRoundToOneDecimal(tripDetails?.Distance ?? 0)} km
+            {tripDetails?.Distance ? `${tripDetails.Distance} km` : 'null'}
           </Typography>
         </Stack>
         <Stack direction="row" alignItems="center">
