@@ -14,6 +14,7 @@ ElearningCoursesPage.getLayout = (page: React.ReactElement) => <MainLayout>{page
 // ----------------------------------------------------------------------
 
 export default function ElearningCoursesPage() {
+
   return (
     <>
       <TripListView />

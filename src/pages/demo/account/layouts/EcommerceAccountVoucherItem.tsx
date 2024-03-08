@@ -1,4 +1,4 @@
- import { differenceInCalendarDays } from 'date-fns';
+import { differenceInCalendarDays } from 'date-fns';
 import NextLink from 'next/link';
 // @mui
 import { Stack, Typography } from '@mui/material';
@@ -21,7 +21,7 @@ type Props = {
 };
 
 export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
-  // const dayLeft = differenceInCalendarDays(tripsDriver.BookingDate, new Date());
+  console.log('1', tripsDriver);
   const [loading, setLoading] = useState(true);
   const [tripDetails, setTripDetails] = useState<TripDetail | null>(null);
   const [status, setStatus] = useState<string | null>(null);
