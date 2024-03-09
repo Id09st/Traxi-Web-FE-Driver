@@ -8,7 +8,7 @@ import { NAV } from 'src/config-global';
 // components
 import Iconify from 'src/components/iconify';
 //
-import EcommerceAccountMenu from './EcommerceAccountMenu';
+import AccountMenu from './AccountMenu';
 
 // ----------------------------------------------------------------------
 
@@ -16,7 +16,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function EcommerceAccountLayout({ children }: Props) {
+export default function AccountLayout({ children }: Props) {
   const isMdUp = useResponsive('up', 'md');
 
   const [menuOpen, setMemuOpen] = useState(false);
@@ -65,7 +65,7 @@ export default function EcommerceAccountLayout({ children }: Props) {
             },
           }}
         >
-          <EcommerceAccountMenu open={menuOpen} onClose={handleMenuClose} />
+          <AccountMenu open={menuOpen} onClose={handleMenuClose} />
 
           <Box
             sx={{

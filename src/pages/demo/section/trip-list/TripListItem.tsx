@@ -40,6 +40,7 @@ import { useEffect, useState } from 'react';
 import { getCustomerInfo } from 'src/api/Customer/Customer';
 import { getDetailVehiclesByTrip } from 'src/api/Trip/Trip';
 import { formatDate } from 'src/utils/formatTime';
+import { useDriverInfo } from 'src/hooks/useDriverInfo';
 
 // ----------------------------------------------------------------------
 
@@ -52,32 +53,19 @@ type Props = {
 };
 
 export default function TripItem({ trip, vertical }: Props) {
-  console.log('TripItem trip:', trip);
   const [customerInfo, setCustomerInfo] = useState<ICustomerInfo | null>(null);
   const [vehicleInfo, setVehicleInfo] = useState<IVehicleInfo | null>(null);
-
+  const driverId = useDriverInfo();
   const router = useRouter();
   const { Id, BookingDate, Status, UpDate, CustomerId, DriverId, tripDetails } = trip;
 
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [userId, setUserId] = useState('');
 
   const showErrorModal = (message: string) => {
     setErrorMessage(message);
     setIsErrorModalOpen(true);
   };
-
-  useEffect(() => {
-    const fetchUserInfo = () => {
-      const userInfoString = localStorage.getItem('USER_INFO');
-      if (userInfoString) {
-        const userInfo = JSON.parse(userInfoString);
-        setUserId(userInfo.id);
-      }
-    };
-    fetchUserInfo();
-  }, []);
 
   useEffect(() => {
     if (CustomerId) {
@@ -104,7 +92,7 @@ export default function TripItem({ trip, vertical }: Props) {
   const handleBookingTrip = async () => {
     try {
       const response = await BookingTrip({
-        driverId: userId,
+        driverId: driverId,
         tripId: Id,
       });
       if (response.error) {
@@ -137,21 +125,33 @@ export default function TripItem({ trip, vertical }: Props) {
     >
       {vehicleInfo && (
         <Box sx={{ flexShrink: { sm: 0 } }}>
-          <Image
-            alt={Id}
-            src={
-              vehicleInfo?.ImgURL ??
-              'https://static.vecteezy.com/system/resources/previews/005/576/332/original/car-icon-car-icon-car-icon-simple-sign-free-vector.jpg'
-            }
-            sx={{
-              height: 1,
-              objectFit: 'cover',
-              width: { sm: 500 },
-              ...(vertical && {
-                width: { sm: 1 },
-              }),
-            }}
-          />
+          {vehicleInfo?.ImgURL ? (
+            <Image
+              alt={Id}
+              src={vehicleInfo?.ImgURL}
+              sx={{
+                height: 1,
+                objectFit: 'cover',
+                width: { sm: 500 },
+                ...(vertical && {
+                  width: { sm: 1 },
+                }),
+              }}
+            />
+          ) : (
+            <Image
+              alt={Id}
+              src="https://img.upanh.tv/2024/03/09/vecteezy_car-icon-car-icon-vector-car-icon-simple-sign_5576332.jpg"
+              sx={{
+                height: 1,
+                objectFit: 'cover',
+                width: { sm: 500 },
+                ...(vertical && {
+                  width: { sm: 1 },
+                }),
+              }}
+            />
+          )}
         </Box>
       )}
 
@@ -306,7 +306,7 @@ export default function TripItem({ trip, vertical }: Props) {
           <Button
             onClick={() => {
               setIsErrorModalOpen(false);
-              router.push('/demo/account/history/history/');
+              router.push(paths.demohistory);
             }}
             color="primary"
           >

@@ -18,7 +18,7 @@ type Props = {
   tripsDriver: TripsDriver;
 };
 
-export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
+export default function AccountItem({ tripsDriver }: Props) {
   // Di chuyển các lời gọi Hooks ra ngoài bất kỳ khối lệnh điều kiện nào
   const [loading, setLoading] = useState(true);
   const [tripDetails, setTripDetails] = useState<TripDetail | null>(null);
@@ -71,7 +71,13 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
   };
 
   return (
-    <div onClick={handleNavigation} onKeyDown={handleKeyDown} role="button" tabIndex={0} style={{ cursor: 'pointer' }}>
+    <div
+      onClick={handleNavigation}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      style={{ cursor: 'pointer' }}
+    >
       <Stack
         direction="row"
         sx={{
@@ -94,11 +100,11 @@ export default function EcommerceAccountVoucherItem({ tripsDriver }: Props) {
           <Image
             src={
               tripDetails?.Vehicle?.ImgURL ??
-              'https://static.vecteezy.com/system/resources/previews/005/576/332/original/car-icon-simple-sign-free-vector.jpg'
+              'https://img.upanh.tv/2024/03/09/vecteezy_car-icon-car-icon-vector-car-icon-simple-sign_5576332.jpg'
             }
           />
           <TextMaxLine variant="overline" line={1}>
-            {tripDetails?.Vehicle?.Mode ?? 'Loại xe null'}
+            {tripDetails?.Vehicle?.Mode ?? 'null'}
           </TextMaxLine>
         </Stack>
 

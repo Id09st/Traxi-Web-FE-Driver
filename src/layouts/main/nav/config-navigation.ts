@@ -116,7 +116,7 @@ export const pageLinks = [
 ];
 
 export const navConfig = [
-  { title: 'Home', path: '/' },
+  { title: 'Trang chủ', path: '/demo' },
   { title: 'Components', path: paths.components.root },
   {
     title: 'Pages',

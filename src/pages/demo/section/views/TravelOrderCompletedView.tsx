@@ -16,12 +16,12 @@ import { useEffect, useState } from 'react';
 import { getDetailTrip } from 'src/api/Trip/Trip';
 import { TripDetail } from 'src/types/trips';
 import TravelOrderCompletedSummary from 'src/pages/demo/section/trip-list/complete-trip/TravelOrderCompletedSummary';
+import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
 interface Type {
   tripId: string;
- 
 }
 
 interface Result {
@@ -72,7 +72,7 @@ export default function TravelOrderCompletedView({ tripId }: Type) {
           alt="cover"
           src={
             tripDetails?.TripDetail?.Vehicle?.ImgURL ??
-            'https://static.vecteezy.com/system/resources/previews/005/576/332/original/car-icon-car-icon-car-icon-simple-sign-free-vector.jpg'
+            'https://img.upanh.tv/2024/03/09/vecteezy_car-icon-car-icon-vector-car-icon-simple-sign_5576332.jpg'
           }
           ratio="3/4"
           sx={{ borderRadius: 2 }}
@@ -89,7 +89,7 @@ export default function TravelOrderCompletedView({ tripId }: Type) {
         <Stack spacing={2.5} direction={{ xs: 'column', md: 'row' }} justifyContent="center">
           <Button
             component={NextLink}
-            href="/demo/trip/trip-list"
+            href={paths.demotriplist}
             variant="outlined"
             size="large"
             color="inherit"
@@ -99,7 +99,7 @@ export default function TravelOrderCompletedView({ tripId }: Type) {
           </Button>
           <Button
             component={NextLink}
-            href="/demo/account/history/history/"
+            href={paths.demohistory}
             variant="contained"
             size="large"
             color="inherit"

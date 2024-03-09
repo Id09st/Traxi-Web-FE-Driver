@@ -61,7 +61,7 @@ export default function TravelTourDetailsHeader({ tripDetails }: Props) {
         ) : (
           <Image
             alt={TripId}
-            src="https://static.vecteezy.com/system/resources/previews/005/576/332/original/car-icon-car-icon-car-icon-simple-sign-free-vector.jpg"
+            src="https://img.upanh.tv/2024/03/09/vecteezy_car-icon-car-icon-vector-car-icon-simple-sign_5576332.jpg"
             sx={{
               height: 1,
               objectFit: 'cover',
@@ -70,8 +70,7 @@ export default function TravelTourDetailsHeader({ tripDetails }: Props) {
           />
         )}
         <Typography variant="h3" sx={{ fontSize: '1rem' }}>
-          {TripDetail?.Vehicle?.Mode ?? 'Loại xe null'} -{' '}
-          {TripDetail?.Vehicle?.Type ?? 'Kiểu xe null'}
+          {TripDetail?.Vehicle?.Mode ?? 'null'} - {TripDetail?.Vehicle?.Type ?? 'null'}
           <br />
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             <Typography variant="h5">

@@ -5,6 +5,7 @@ import { API_ROOT } from 'src/utils/constants';
 import { jwtDecode } from 'jwt-decode';
 import { getUserInfo, setUserInfo } from 'src/utils/utils';
 import { isValidToken, setSession } from 'src/utils/jwt';
+import { paths } from 'src/routes/paths';
 
 interface CustomJwtPayload {
   Id: string;
@@ -111,59 +112,61 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     initialize();
   }, []);
 
-  const login = useCallback(async (phone: string, password: string) => {
-    try {
-      const response = await axios.post(`${API_ROOT}/api/v1/login/driver`, {
-        phone,
-        password,
-      });
-      const { token } = response.data;
-      const decodedToken = jwtDecode<CustomJwtPayload>(token);
+  const login = useCallback(
+    async (phone: string, password: string) => {
+      try {
+        const response = await axios.post(`${API_ROOT}/api/v1/login/driver`, {
+          phone,
+          password,
+        });
+        const { token } = response.data;
+        const decodedToken = jwtDecode<CustomJwtPayload>(token);
 
-      const user = {
-        id: decodedToken.Id,
-        name: decodedToken.Name,
-        role: decodedToken.Role,
-        status: decodedToken.Status,
-        iat: decodedToken.iat,
-        exp: decodedToken.exp,
-      };
-      setSession(token);
-      setUserInfo(user);
-      router.push('/demo/trip/trip-list/');
-      dispatch({
-        type: Types.LOGIN,
-        payload: {
-          user,
-        },
-      });
-    } catch (err) {
-      console.error(err);
-      const error = err as { response: { data: { message: string } } };
-      throw new Error(error.response.data.message || 'Đăng nhập thất bại.');
-    }
-  }, [router]); // Thêm router vào mảng phụ thuộc
+        const user = {
+          id: decodedToken.Id,
+          name: decodedToken.Name,
+          role: decodedToken.Role,
+          status: decodedToken.Status,
+          iat: decodedToken.iat,
+          exp: decodedToken.exp,
+        };
+        setSession(token);
+        setUserInfo(user);
+        router.push(paths.demotriplist);
+        dispatch({
+          type: Types.LOGIN,
+          payload: {
+            user,
+          },
+        });
+      } catch (err) {
+        console.error(err);
+        const error = err as { response: { data: { message: string } } };
+        throw new Error(error.response.data.message || 'Đăng nhập thất bại.');
+      }
+    },
+    [router]
+  ); // Thêm router vào mảng phụ thuộc
 
   const logout = useCallback(() => {
     setSession(null);
     dispatch({ type: Types.LOGOUT });
     localStorage.removeItem('USER_INFO');
-    router.push('/demo/auth/login');
+    router.push(paths.demologin);
   }, [router]); // Đảm bảo rằng hàm logout không thay đổi giữa các lần render trừ khi router thay đổi
 
   // Sử dụng useMemo để đảm bảo đối tượng value chỉ được tính toán lại khi state, login, hoặc logout thay đổi
-  const value = useMemo(() => ({
-    ...state,
-    method: 'jwt',
-    login,
-    logout,
-  }), [state, login, logout]);
-
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo(
+    () => ({
+      ...state,
+      method: 'jwt',
+      login,
+      logout,
+    }),
+    [state, login, logout]
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export { AuthContext, AuthProvider };

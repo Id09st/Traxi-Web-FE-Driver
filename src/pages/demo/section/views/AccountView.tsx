@@ -18,10 +18,10 @@ import { TripsDriver } from 'src/types/trips';
 // api
 import { getDetailTripByDriver } from 'src/api/Trip/Trip';
 // components
-import EcommerceAccountLayout from '../../account/layouts/EcommerceAccountLayout';
-import EcommerceAccountVoucherItem from '../../account/layouts/EcommerceAccountVoucherItem';
+import AccountItem from '../../account/layouts/AccountItem';
+import AccountLayout from '../../account/layouts/AccountLayout';
 
-export default function EcommerceAccountVouchersView() {
+export default function AccountView() {
   const [tripsDriver, setTripsDriver] = useState<TripsDriver[] | null>(null);
   const [userId, setUserId] = useState('');
 
@@ -54,7 +54,7 @@ export default function EcommerceAccountVouchersView() {
   }, [userId]);
 
   return (
-    <EcommerceAccountLayout>
+    <AccountLayout>
       <Typography variant="h4" sx={{ mb: 3 }}>
         Lịch sử cuốc
       </Typography>
@@ -69,11 +69,11 @@ export default function EcommerceAccountVouchersView() {
         {tripsDriver && (
           <Suspense fallback={<div>Loading...</div>}>
             {tripsDriver.map((trip) => (
-              <EcommerceAccountVoucherItem key={trip.Id} tripsDriver={trip} />
+              <AccountItem key={trip.Id} tripsDriver={trip} />
             ))}
           </Suspense>
         )}
       </Box>
-    </EcommerceAccountLayout>
+    </AccountLayout>
   );
 }

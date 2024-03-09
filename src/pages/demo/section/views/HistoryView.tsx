@@ -31,7 +31,7 @@ import {
 // components
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
-import EcommerceAccountLayout from '../../account/layouts/EcommerceAccountLayout';
+import EcommerceAccountLayout from '../../account/layouts/AccountLayout';
 
 // ----------------------------------------------------------------------
 

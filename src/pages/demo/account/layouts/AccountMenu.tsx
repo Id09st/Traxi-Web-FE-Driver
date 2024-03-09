@@ -25,16 +25,23 @@ import _mock from 'src/_mock';
 import Iconify from 'src/components/iconify';
 import TextMaxLine from 'src/components/text-max-line';
 import useAuth from 'src/hooks/useAuth';
+import { useDriverInfo } from 'src/hooks/useDriverInfo';
+import { useEffect, useState } from 'react';
+import { getDriverInfo } from 'src/api/Driver/Driver';
 
 // ----------------------------------------------------------------------
 
 const navigations = [
   {
+    title: 'Tài khoản',
+    path: paths.demoaccount,
+    icon: <Iconify icon="fa:drivers-license-o" />,
+  },
+  {
     title: 'Danh sách công việc',
     path: paths.demotriplist,
     icon: <Iconify icon="solar:document-broken" />,
   },
-
   {
     title: 'Lịch sử cuốc',
     path: paths.demohistory,
@@ -49,9 +56,36 @@ type Props = {
   onClose: VoidFunction;
 };
 
-export default function EcommerceAccountMenu({ open, onClose }: Props) {
+export default function AccountMenu({ open, onClose }: Props) {
   const isMdUp = useResponsive('up', 'md');
   const { logout } = useAuth();
+  const driverId = useDriverInfo();
+
+  const [driverData, setDriverData] = useState({
+    fullName: '',
+    phone: '',
+    imageUrl: '',
+  });
+
+  useEffect(() => {
+    if (driverId) {
+      getDriverInfo(driverId)
+        .then((data) => {
+          const { result } = data;
+          if (result) {
+            // Cập nhật state với toàn bộ dữ liệu driver
+            setDriverData({
+              fullName: result.FullName,
+              phone: result.Phone,
+              imageUrl: result.ImageUrl,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error('Failed to fetch driver info:', error);
+        });
+    }
+  }, [driverId]);
 
   const renderContent = (
     <Stack
@@ -65,28 +99,19 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
         }),
       }}
     >
-      {/* <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
+      <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
         <Stack spacing={2} direction="row" alignItems="center">
-          <Avatar src={_mock.image.avatar(0)} sx={{ width: 64, height: 64 }} />
-          <Stack
-            direction="row"
-            alignItems="center"
-            sx={{ typography: 'caption', cursor: 'pointer', '&:hover': { opacity: 0.72 } }}
-          >
-            <Iconify icon="carbon:edit" sx={{ mr: 1 }} />
-            Change photo
+          <Avatar src={driverData.imageUrl} sx={{ width: 64, height: 64 }} />
+          <Stack spacing={0.5}>
+            <TextMaxLine variant="subtitle1" line={1}>
+              {driverData.fullName}
+            </TextMaxLine>
+            <TextMaxLine variant="body2" line={1} sx={{ color: 'text.secondary' }}>
+              {driverData.phone}
+            </TextMaxLine>
           </Stack>
         </Stack>
-
-        <Stack spacing={0.5}>
-          <TextMaxLine variant="subtitle1" line={1}>
-            Jayvion Simon
-          </TextMaxLine>
-          <TextMaxLine variant="body2" line={1} sx={{ color: 'text.secondary' }}>
-            nannie_abernathy70@yahoo.com
-          </TextMaxLine>
-        </Stack>
-      </Stack> */}
+      </Stack>
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 
@@ -111,7 +136,7 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
             <Iconify icon="carbon:logout" />
           </ListItemIcon>
           <ListItemText
-            primary="Logout"
+            primary="Đăng xuất"
             primaryTypographyProps={{
               typography: 'body2',
             }}

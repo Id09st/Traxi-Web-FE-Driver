@@ -6,7 +6,7 @@ import { Box } from '@mui/material';
 import { HEADER } from 'src/config-global';
 //
 import Header from './header/Header';
-import Footer from './footer/Footer';
+
 
 // ----------------------------------------------------------------------
 
@@ -27,8 +27,8 @@ export default function MainLayout({ children }: Props) {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: 1 }}>
-      {/* <Header headerOnDark={actionPage(pathsOnDark)} /> */}
-
+      <Header headerOnDark={actionPage(pathsOnDark)} />
+      {/* <ResponsiveAppBar /> */}
       <Box
         component="main"
         sx={{
